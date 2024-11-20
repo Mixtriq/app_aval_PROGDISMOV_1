@@ -19,10 +19,6 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
-        leading: IconButton(
-            onPressed: () {
-            },
-            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {
