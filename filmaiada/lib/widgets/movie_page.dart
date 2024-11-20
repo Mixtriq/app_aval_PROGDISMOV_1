@@ -1,4 +1,5 @@
 import 'package:filmaiada/models/movie.dart';
+import 'package:filmaiada/screens/movie_info.dart';
 import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
@@ -18,13 +19,23 @@ class MoviePage extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0)),
-              child: Image.asset(
-                movie.posterUrl,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (ctx) => MovieInfoScreen(movie: movie)));
+                },
+                child: Image.asset(
+                  movie.posterUrl,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
             Text(
               movie.title,
+              textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge
