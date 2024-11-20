@@ -19,6 +19,10 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
+        leading: IconButton(
+            onPressed: () {
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {
@@ -26,7 +30,9 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
                 moviesProvider.state.toogleFavorite(widget.movie.id);
               });
             },
-            icon: Icon(widget.movie.isFavorite ? Icons.playlist_add_check : Icons.playlist_add),
+            icon: Icon(widget.movie.isFavorite
+                ? Icons.playlist_add_check
+                : Icons.playlist_add),
           ),
         ],
       ),

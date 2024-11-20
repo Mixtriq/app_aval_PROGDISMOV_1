@@ -1,4 +1,3 @@
-import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/screens/movies.dart';
 import 'package:filmaiada/screens/watch_list.dart';
 import 'package:filmaiada/widgets/main_drawer.dart';
@@ -16,7 +15,6 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var moviesProvider = MoviesProvider.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,11 +38,8 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
         ],
       ),
       body: [
-        MoviesScrenn(moviesList: moviesProvider.state.movies),
-        WatchListScreen(
-            moviesList: moviesProvider.state.movies
-                .where((m) => m.isFavorite)
-                .toList()),
+        const MoviesScrenn(),
+        const WatchListScreen(),
       ][currentPageIndex],
     );
   }
