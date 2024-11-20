@@ -11,15 +11,14 @@ class MoviesScrenn extends StatefulWidget {
 }
 
 class _MoviesScrennState extends State<MoviesScrenn> {
-
   final _pageController = PageController(
     initialPage: 0,
   );
 
   @override
   Widget build(BuildContext context) {
-  List<Movie> movies = MoviesProvider.of(context).state.movies;
-    
+    List<Movie> movies = MoviesProvider.of(context).state.movies;
+
     return SafeArea(
       child: PageView(
         controller: _pageController,
