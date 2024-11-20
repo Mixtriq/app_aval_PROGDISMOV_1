@@ -2,6 +2,7 @@ import 'package:filmaiada/models/movie.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:filmaiada/widgets/movie_duration.dart';
 
 class MovieInfoScreen extends StatefulWidget {
   const MovieInfoScreen({super.key, required this.movie});
@@ -43,13 +44,45 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
         child: Column(
           children: [
             SizedBox(
-              width: double.infinity,
-              height: 400,
+              height: 300,
               child: Image.asset(
                 widget.movie.posterUrl,
                 fit: BoxFit.cover,
               ),
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              widget.movie.title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
+            ),
+            Text(widget.movie.releaseYear),
+            const SizedBox(
+              height: 25,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.star, color: Color.fromARGB(255, 255, 230, 0)),
+                Text(widget.movie.averageRating.toString()),
+                const SizedBox(width: 50),
+                const Icon(Icons.access_time),
+                MovieDuration(duration: widget.movie.duration)
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Text(
+              widget.movie.synopsis,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Text("Diretor: ${widget.movie.director}"),
+            Text("Elenco: ${widget.movie.movieStars}")
           ],
         ),
       ),
