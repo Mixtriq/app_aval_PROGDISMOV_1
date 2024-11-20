@@ -1,3 +1,4 @@
+import 'package:filmaiada/providers/movies.dart';
 import 'package:filmaiada/screens/movies.dart';
 import 'package:filmaiada/screens/watch_list.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var moviesProvider = MoviesProvider.of(context);
+
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
@@ -23,13 +26,16 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
         },
         selectedIndex: currentPageIndex,
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.movie), label: 'Filmes',),
+          NavigationDestination(
+            icon: Icon(Icons.movie),
+            label: 'Filmes',
+          ),
           NavigationDestination(icon: Icon(Icons.reorder), label: 'Minha Lista')
         ],
       ),
       body: [
-        const MoviesScrenn(),
-        const WatchListScreen(),
+        MoviesScrenn(moviesList: moviesProvider.state.movies),
+        WatchListScreen(moviesList: moviesProvider.state.movies.where((m) => m.isFavorite).toList()),
       ][currentPageIndex],
     );
   }

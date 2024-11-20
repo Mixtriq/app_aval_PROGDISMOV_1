@@ -17,7 +17,7 @@ class MoviePage extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              height: 500,
+              height: 450,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20.0),
@@ -45,7 +45,7 @@ class MoviePage extends StatelessWidget {
                   .headlineLarge
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -62,6 +62,13 @@ class MoviePage extends StatelessWidget {
                   ],
                 ),
               ],
+            ),
+            const SizedBox(height: 20.0),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(movie.synopsis, textAlign: TextAlign.justify, overflow: TextOverflow.visible,),
+              ),
             ),
           ],
         ),

@@ -7,16 +7,18 @@ class Movie {
   final String director;
   final List<String> movieStars;
   final double averageRating;
-
-  const Movie({
-    required this.id,
-    required this.title,
-    required this.releaseYear,
-    required this.posterUrl,
-    required this.duration,
-    required this.director,
-    required this.movieStars,
-    required this.averageRating
-  });
+  final String synopsis;
   
+  bool isFavorite = false;
+
+  Movie(
+      {required this.id,
+      required this.title,
+      required this.releaseYear,
+      required this.posterUrl,
+      required this.duration,
+      required this.director,
+      required this.movieStars,
+      required this.averageRating,
+      required this.synopsis});
 }
