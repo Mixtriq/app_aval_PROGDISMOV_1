@@ -1,5 +1,6 @@
 import 'package:filmaiada/models/movie.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
+import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:filmaiada/widgets/movie_duration.dart';
 
@@ -20,6 +21,12 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(
+                  context, AppRoutes.home);
+            },
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {

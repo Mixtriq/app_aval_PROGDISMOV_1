@@ -12,10 +12,15 @@ class FavoriteMovie extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (ctx) => MovieInfoScreen(movie: movie)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => MovieInfoScreen(
+              movie: movie,
+            ),
+          ),
+        );
       },
-      
       child: Card(
         child: Row(
           children: [
