@@ -22,14 +22,14 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
           });
         },
         selectedIndex: currentPageIndex,
-        destinations: [
+        destinations: const [
           NavigationDestination(icon: Icon(Icons.movie), label: 'Filmes',),
           NavigationDestination(icon: Icon(Icons.reorder), label: 'Minha Lista')
         ],
       ),
       body: [
-        MoviesScrenn(),
-        WatchListScreen(),
+        const MoviesScrenn(),
+        const WatchListScreen(),
       ][currentPageIndex],
     );
   }
