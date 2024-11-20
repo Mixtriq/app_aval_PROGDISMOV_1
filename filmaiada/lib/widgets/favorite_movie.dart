@@ -15,6 +15,7 @@ class FavoriteMovie extends StatelessWidget {
         Navigator.push(context,
             MaterialPageRoute(builder: (ctx) => MovieInfoScreen(movie: movie)));
       },
+      
       child: Card(
         child: Row(
           children: [
@@ -42,7 +43,7 @@ class FavoriteMovie extends StatelessWidget {
                 Row(
                   children: [
                     Text(movie.releaseYear),
-                    SizedBox(
+                    const SizedBox(
                       width: 20.0,
                     ),
                     MovieDuration(duration: movie.duration)

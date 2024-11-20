@@ -1,16 +1,21 @@
 import 'package:filmaiada/models/movie.dart';
+import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/widgets/favorite_movie.dart';
 import 'package:flutter/material.dart';
 
 class WatchListScreen extends StatelessWidget {
-  const WatchListScreen({super.key, required this.moviesList});
+  const WatchListScreen({super.key});
 
-  final List<Movie> moviesList;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.builder(
-          itemCount: moviesList.length, itemBuilder: (ctx, i) => FavoriteMovie(movie: moviesList[i])),
-    );
+    List<Movie> movies = MoviesProvider.of(context)
+        .state
+        .movies
+        .where((m) => m.isFavorite)
+        .toList();
+
+    return ListView.builder(
+        itemCount: movies.length,
+        itemBuilder: (ctx, i) => FavoriteMovie(movie: movies[i]));
   }
 }
