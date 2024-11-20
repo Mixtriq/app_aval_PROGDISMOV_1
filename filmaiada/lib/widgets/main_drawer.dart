@@ -32,9 +32,9 @@ class MainDrawer extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (ctx) => const AboutUsScreen()));
               },
-              child: Card(
+              child: const Card(
                   child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Icon(Icons.info_outline),
@@ -54,7 +54,3 @@ class MainDrawer extends StatelessWidget {
 }
 
 
-// Text('Criadores:', style: Theme.of(context).textTheme.titleLarge,),
-//             const SizedBox(height: 10.0,),
-//             const ProfileTile(name: 'Kevin Machado', color: Colors.purple),
-//             const ProfileTile(name: 'Carlos Eduardo', color: Colors.blue)
