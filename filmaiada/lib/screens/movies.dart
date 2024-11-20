@@ -16,9 +16,11 @@ class _MoviesScrennState extends State<MoviesScrenn> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: _pageController,
-      children: dummyMovies.map((m) => MoviePage(movie : m)).toList(),
+    return SafeArea(
+      child: PageView(
+        controller: _pageController,
+        children: dummyMovies.map((m) => MoviePage(movie : m)).toList(),
+      ),
     );
   }
 }

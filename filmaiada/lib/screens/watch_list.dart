@@ -6,9 +6,7 @@ class WatchListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Card(
-        
-      ),
+      child: Text('Lista de Filmes'),
     );
   }
 }
