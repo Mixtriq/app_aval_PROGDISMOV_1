@@ -37,8 +37,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
         child: Column(
           children: [
             SizedBox(
-              width: double.infinity,
-              height: 400,
+              height: 300,
               child: Image.asset(
                 widget.movie.posterUrl,
                 fit: BoxFit.cover,
@@ -51,13 +50,14 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
               widget.movie.title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
             ),
+            Text(widget.movie.releaseYear),
             const SizedBox(
-              height: 35,
+              height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.star, color: Colors.yellow),
+                const Icon(Icons.star, color: Color.fromARGB(255, 255, 230, 0)),
                 Text(widget.movie.averageRating.toString()),
                 const SizedBox(width: 50),
                 const Icon(Icons.access_time),
