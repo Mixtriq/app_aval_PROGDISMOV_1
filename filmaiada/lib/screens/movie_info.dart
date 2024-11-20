@@ -35,6 +35,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 300,
@@ -69,13 +70,15 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
             ),
             Text(
               widget.movie.synopsis,
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(
               height: 30,
             ),
             Text("Diretor: ${widget.movie.director}"),
-            Text("Elenco: ${widget.movie.movieStars}")
+            Text("Elenco: ${widget.movie.movieStars.join(", ")}")
           ],
         ),
       ),
