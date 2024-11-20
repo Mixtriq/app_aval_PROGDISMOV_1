@@ -15,20 +15,24 @@ class MoviePage extends StatelessWidget {
         borderOnForeground: true,
         child: Column(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0)),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (ctx) => MovieInfoScreen(movie: movie)));
-                },
-                child: Image.asset(
-                  movie.posterUrl,
-                  fit: BoxFit.fill,
+            SizedBox(
+              width: double.infinity,
+              height: 500,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0)),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (ctx) => MovieInfoScreen(movie: movie)));
+                  },
+                  child: Image.asset(
+                    movie.posterUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

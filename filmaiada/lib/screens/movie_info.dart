@@ -13,8 +13,10 @@ class MovieInfoScreen extends StatefulWidget {
 class _MovieInfoScreenState extends State<MovieInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(widget.movie.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.movie.title),
+      ),
     );
   }
 }
