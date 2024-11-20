@@ -1,4 +1,5 @@
 import 'package:filmaiada/models/movie.dart';
+import 'package:filmaiada/widgets/favorite_movie.dart';
 import 'package:flutter/material.dart';
 
 class WatchListScreen extends StatelessWidget {
@@ -7,7 +8,9 @@ class WatchListScreen extends StatelessWidget {
   final List<Movie> moviesList;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: moviesList.length, itemBuilder: (ctx, i) => ListTile(title: Text(moviesList[i].title),));
+    return SingleChildScrollView(
+      child: ListView.builder(
+          itemCount: moviesList.length, itemBuilder: (ctx, i) => FavoriteMovie(movie: moviesList[i])),
+    );
   }
 }

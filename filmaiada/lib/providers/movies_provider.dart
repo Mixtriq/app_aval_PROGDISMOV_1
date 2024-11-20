@@ -7,14 +7,18 @@ class MoviesState {
 
   const MoviesState({required this.movies});
 
-  bool toogleFavorite(int movieId) {
+  void toogleFavorite(int movieId) {
     for (var i = 0; i < movies.length; i++) {
       if (movies[i].id == movieId) {
         movies[i].isFavorite = !movies[i].isFavorite;
-        return true;
+        hasToogled();
       }
     }
-    return false;
+
+  }
+
+  hasToogled() {
+    return true;
   }
 }
 
@@ -37,5 +41,6 @@ class MoviesProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(MoviesProvider oldWidget) => true;
+  bool updateShouldNotify(MoviesProvider oldWidget) =>
+      oldWidget.state.hasToogled() ?? false;
 }

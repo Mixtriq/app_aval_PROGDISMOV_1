@@ -1,5 +1,6 @@
 import 'package:filmaiada/models/movie.dart';
 import 'package:filmaiada/screens/movie_info.dart';
+import 'package:filmaiada/widgets/movie_duration.dart';
 import 'package:flutter/material.dart';
 
 class MoviePage extends StatelessWidget {
@@ -58,7 +59,7 @@ class MoviePage extends StatelessWidget {
                 Row(
                   children: [
                     const Icon(Icons.access_time),
-                    Text("${movie.duration ~/ 60}h ${movie.duration % 60}min"),
+                    MovieDuration(duration: movie.duration),
                   ],
                 ),
               ],
