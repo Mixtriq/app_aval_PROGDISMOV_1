@@ -1,5 +1,5 @@
 import 'package:filmaiada/models/movie.dart';
-import 'package:filmaiada/providers/movies.dart';
+import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:flutter/material.dart';
 
 class MovieInfoScreen extends StatefulWidget {

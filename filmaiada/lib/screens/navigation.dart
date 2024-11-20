@@ -1,6 +1,7 @@
-import 'package:filmaiada/providers/movies.dart';
+import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/screens/movies.dart';
 import 'package:filmaiada/screens/watch_list.dart';
+import 'package:filmaiada/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigationScreen extends StatefulWidget {
@@ -18,6 +19,11 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
     var moviesProvider = MoviesProvider.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Filmaiada'),
+      ),
+      drawer: const MainDrawer(),
+      drawerEnableOpenDragGesture: false,
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
@@ -35,7 +41,10 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
       ),
       body: [
         MoviesScrenn(moviesList: moviesProvider.state.movies),
-        WatchListScreen(moviesList: moviesProvider.state.movies.where((m) => m.isFavorite).toList()),
+        WatchListScreen(
+            moviesList: moviesProvider.state.movies
+                .where((m) => m.isFavorite)
+                .toList()),
       ][currentPageIndex],
     );
   }

@@ -1,4 +1,4 @@
-import 'package:filmaiada/providers/movies.dart';
+import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/screens/navigation.dart';
 import 'package:flutter/material.dart';
 
