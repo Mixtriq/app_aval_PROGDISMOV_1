@@ -1,4 +1,4 @@
-import 'package:filmaiada/data/dummy_data.dart';
+import 'package:filmaiada/screens/navigation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,30 +14,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        appBar: AppBar(title: const Text("Filmaiada")),
-        body: ListView(
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            for (var movie in movies)
-              Column(
-                children: [
-                  InkWell(
-                      child: Container(
-                        height: 50,
-                        color: Colors.blue,
-                        child: Center(child: Text(movie.name)),
-                      ),
-                      onTap: () => {}),
-                  const SizedBox(height: 10),
-                ],
-              ),
-          ],
-        ),
-      ),
+      home: AppNavigationScreen()
     );
   }
 }
