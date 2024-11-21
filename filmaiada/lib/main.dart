@@ -20,9 +20,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'App Lista de Filmes',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue, brightness: Brightness.dark),
           useMaterial3: true,
         ),
+        themeMode: ThemeMode.dark,
         initialRoute: AppRoutes.home,
         routes: {
           AppRoutes.home: (ctx) => const AppNavigationScreen(),
