@@ -94,9 +94,9 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
                 ],
               ),
               const SizedBox(height: 20.0,),
-              Row(
+              const Row(
                 children: [
-                  const Text(
+                  Text(
                     'Elenco:',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
@@ -107,7 +107,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Row(
                   children: [
-                    Icon(Icons.star_border),
+                    const Icon(Icons.star_border),
                     Text(' $e', textAlign: TextAlign.start,),
                   ],
                 ),
