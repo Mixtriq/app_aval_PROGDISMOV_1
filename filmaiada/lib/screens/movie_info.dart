@@ -1,8 +1,7 @@
 import 'package:filmaiada/models/movie.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
-import 'package:filmaiada/utils/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:filmaiada/widgets/movie_duration.dart';
+import 'package:flutter/material.dart';
 
 class MovieInfoScreen extends StatefulWidget {
   const MovieInfoScreen({super.key, required this.movie});
@@ -21,12 +20,6 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                  context, AppRoutes.home);
-            },
-            icon: const Icon(Icons.arrow_back)),
         actions: [
           IconButton(
             onPressed: () {
@@ -45,6 +38,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
+              width: double.infinity,
               height: 300,
               child: Image.asset(
                 widget.movie.posterUrl,
@@ -56,36 +50,69 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
             ),
             Text(
               widget.movie.title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
+              textAlign: TextAlign.center,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
             ),
-            Text(widget.movie.releaseYear),
             const SizedBox(
               height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.star, color: Color.fromARGB(255, 255, 230, 0)),
+                const Icon(Icons.star, color: Colors.amber),
                 Text(widget.movie.averageRating.toString()),
-                const SizedBox(width: 50),
+                const SizedBox(width: 20),
                 const Icon(Icons.access_time),
-                MovieDuration(duration: widget.movie.duration)
+                MovieDuration(duration: widget.movie.duration),
+                const SizedBox(width: 20),
+                Text(widget.movie.releaseYear),
               ],
             ),
             const SizedBox(
               height: 50,
             ),
-            Text(
-              widget.movie.synopsis,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(children: [Text(
+                widget.movie.synopsis,
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Text("Diretor: ${widget.movie.director}"),
-            Text("Elenco: ${widget.movie.movieStars.join(", ")}")
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    'Diretor: ',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(widget.movie.director)
+                ],
+              ),
+              const SizedBox(height: 20.0,),
+              Row(
+                children: [
+                  const Text(
+                    'Elenco:',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10.0,),
+              ...widget.movie.movieStars.map((e) => Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.star_border),
+                    Text(' $e', textAlign: TextAlign.start,),
+                  ],
+                ),
+              )),],),
+            )
           ],
         ),
       ),

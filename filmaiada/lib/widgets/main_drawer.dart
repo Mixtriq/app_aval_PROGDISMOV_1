@@ -1,4 +1,4 @@
-import 'package:filmaiada/screens/about_us.dart';
+import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -29,8 +29,7 @@ class MainDrawer extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (ctx) => const AboutUsScreen()));
+                Navigator.pushNamed(context, AppRoutes.aboutUs);
               },
               child: const Card(
                   child: Padding(
