@@ -47,13 +47,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAIDR-cKt_Rbap8WE-eZ7Z9pWYTtJ2arUQ',
-    appId: '1:757075726048:web:3854ef9b7b7f4ade4b4a85',
-    messagingSenderId: '757075726048',
-    projectId: 'filmaiada-33122',
-    authDomain: 'filmaiada-33122.firebaseapp.com',
-    databaseURL: 'https://filmaiada-33122-default-rtdb.firebaseio.com',
-    storageBucket: 'filmaiada-33122.firebasestorage.app',
+    apiKey: "AIzaSyAIDR-cKt_Rbap8WE-eZ7Z9pWYTtJ2arUQ",
+    authDomain: "filmaiada-33122.firebaseapp.com",
+    databaseURL: "https://filmaiada-33122-default-rtdb.firebaseio.com",
+    projectId: "filmaiada-33122",
+    storageBucket: "filmaiada-33122.firebasestorage.app",
+    messagingSenderId: "757075726048",
+    appId: "1:757075726048:web:3854ef9b7b7f4ade4b4a85"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
