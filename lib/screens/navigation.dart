@@ -38,8 +38,8 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
         ],
       ),
       body: [
-        const MoviesScrenn(),
-        const WatchListScreen(),
+        const MoviesScreen(),
+        //const WatchListScreen(),
       ][currentPageIndex],
     );
   }

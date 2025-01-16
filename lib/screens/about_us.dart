@@ -28,7 +28,7 @@ class AboutUsScreen extends StatelessWidget {
                Text('Repositório:', style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),),
               const SizedBox(height: 10.0,),
               ElevatedButton.icon(onPressed: (){
-                Clipboard.setData(const ClipboardData(text: 'https://github.com/kevinm4ch/app_aval_PROGDISMOV_1'));
+                Clipboard.setData(const ClipboardData(text: 'https://github.com/kevinm4ch/filmaiada'));
               }, label: const Text('Link para o repositório do Projeto'), icon: const Icon(Icons.copy),)
           ],
         ),

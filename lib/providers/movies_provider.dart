@@ -1,46 +1,40 @@
-import 'package:filmaiada/data/dummy_data.dart';
+import 'dart:convert';
+
 import 'package:filmaiada/models/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
-class MoviesState {
-  final List<Movie> movies;
+class MoviesProvider with ChangeNotifier {
+  List<Movie> _movies = [];
+  bool _isLoading = false;
+  String? _error;
 
-  const MoviesState({required this.movies});
+  List<Movie> get movies => _movies;
+  bool get isLoading => _isLoading;
+  String? get error => _error;
 
-  void toogleFavorite(int movieId) {
-    for (var i = 0; i < movies.length; i++) {
-      if (movies[i].id == movieId) {
-        movies[i].isFavorite = !movies[i].isFavorite;
-        hasToogled();
+  Future<void> fetchMovies() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final url = Uri.https(
+          'filmaiada-33122-default-rtdb.firebaseio.com', 'movies.json');
+
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        _movies = data.map((json) => Movie.fromJson(json)).toList();
+      } else {
+        _error = 'Falha ao carregar filmes';
       }
+    } catch (error) {
+      _error = error.toString();
+      rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
-
   }
-
-  hasToogled() {
-    return true;
-  }
-}
-
-class MoviesProvider extends InheritedWidget {
-  MoviesProvider({
-    super.key,
-    required super.child,
-  });
-
-  final MoviesState state = MoviesState(movies: dummyMovies);
-
-  static MoviesProvider? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<MoviesProvider>();
-  }
-
-  static MoviesProvider of(BuildContext context) {
-    final MoviesProvider? result = maybeOf(context);
-    assert(result != null, 'No MoviesProvider found in context');
-    return result!;
-  }
-
-  @override
-  bool updateShouldNotify(MoviesProvider oldWidget) =>
-      oldWidget.state.hasToogled() ?? false;
 }
