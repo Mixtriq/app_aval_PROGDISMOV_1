@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "757075726048",
+    "firebase_url": "https://filmaiada-33122-default-rtdb.firebaseio.com",
+    "project_id": "filmaiada-33122",
+    "storage_bucket": "filmaiada-33122.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757075726048:android:14dec94a8b3fec4f4b4a85",
+        "android_client_info": {
+          "package_name": "com.example.filmaiada"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiQx-x-pKAS__IgLoa3loP3zUQZX1VjOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
