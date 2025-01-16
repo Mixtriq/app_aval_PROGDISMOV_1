@@ -31,7 +31,7 @@ class MoviePage extends StatelessWidget {
                             builder: (ctx) => MovieInfoScreen(movie: movie)));
                   },
                   child: Image.asset(
-                    movie.posterUrl,
+                    "assets/img/${movie.posterUrl}",
                     fit: BoxFit.cover,
                   ),
                 ),

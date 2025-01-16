@@ -15,23 +15,23 @@ class MovieInfoScreen extends StatefulWidget {
 class _MovieInfoScreenState extends State<MovieInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    MoviesProvider moviesProvider = MoviesProvider.of(context);
+    //MoviesProvider moviesProvider = MoviesProvider.of(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                moviesProvider.state.toogleFavorite(widget.movie.id);
-              });
-            },
-            icon: Icon(widget.movie.isFavorite
-                ? Icons.playlist_add_check
-                : Icons.playlist_add),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       setState(() {
+        //         moviesProvider.state.toogleFavorite(widget.movie.id);
+        //       });
+        //     },
+        //     icon: Icon(widget.movie.isFavorite
+        //         ? Icons.playlist_add_check
+        //         : Icons.playlist_add),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
