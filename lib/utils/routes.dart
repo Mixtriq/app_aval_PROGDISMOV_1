@@ -1,5 +1,6 @@
 class AppRoutes {
-  static const home = '/';
+  static const login = '/';
+  static const home = '/home';
   static const movieInfo = '/movie_info';
   static const movies = '/movies';
   static const aboutUs = '/about_us';

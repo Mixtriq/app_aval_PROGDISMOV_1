@@ -1,3 +1,5 @@
+import 'package:filmaiada/screens/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/screens/about_us.dart';
 import 'package:filmaiada/screens/movies.dart';
@@ -6,11 +8,25 @@ import 'package:filmaiada/screens/watch_list.dart';
 import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyAIDR-cKt_Rbap8WE-eZ7Z9pWYTtJ2arUQ",
+      authDomain: "filmaiada-33122.firebaseapp.com",
+      databaseURL: "https://filmaiada-33122-default-rtdb.firebaseio.com",
+      projectId: "filmaiada-33122",
+      storageBucket: "filmaiada-33122.firebasestorage.app",
+      messagingSenderId: "757075726048",
+      appId: "1:757075726048:web:3854ef9b7b7f4ade4b4a85"
+    )
+  );
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  
+  
   const MyApp({super.key});
 
   @override
@@ -24,8 +40,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         themeMode: ThemeMode.dark,
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.login,
         routes: {
+          AppRoutes.login: (ctx) => const LoginScreen(),
           AppRoutes.home: (ctx) => const AppNavigationScreen(),
           AppRoutes.movies: (ctx) => const MoviesScrenn(),
           AppRoutes.watchList: (ctx) => const WatchListScreen(),
