@@ -39,7 +39,7 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
       ),
       body: [
         const MoviesScreen(),
-        //const WatchListScreen(),
+        const WatchListScreen(),
       ][currentPageIndex],
     );
   }

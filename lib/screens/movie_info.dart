@@ -1,5 +1,5 @@
 import 'package:filmaiada/models/movie.dart';
-import 'package:filmaiada/providers/movies_provider.dart';
+import 'package:filmaiada/widgets/botao_favorito.dart';
 import 'package:filmaiada/widgets/movie_duration.dart';
 import 'package:flutter/material.dart';
 
@@ -15,23 +15,12 @@ class MovieInfoScreen extends StatefulWidget {
 class _MovieInfoScreenState extends State<MovieInfoScreen> {
   @override
   Widget build(BuildContext context) {
-    //MoviesProvider moviesProvider = MoviesProvider.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.movie.title),
-        // actions: [
-        //   IconButton(
-        //     onPressed: () {
-        //       setState(() {
-        //         moviesProvider.state.toogleFavorite(widget.movie.id);
-        //       });
-        //     },
-        //     icon: Icon(widget.movie.isFavorite
-        //         ? Icons.playlist_add_check
-        //         : Icons.playlist_add),
-        //   ),
-        // ],
+        actions: [
+          ToggleWatchListButton(movieId: widget.movie.id.toString())
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
