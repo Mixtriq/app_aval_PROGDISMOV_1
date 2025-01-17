@@ -107,7 +107,7 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                         validator: (poster) {
                           if (poster == null || poster.isEmpty) {
                             return 'Pôster é obrigatório';
-                          } else if (isValidImageUrl(poster)) {
+                          } else if (!isValidImageUrl(poster)) {
                             return 'Insira uma url válida';
                           }
                           return null;

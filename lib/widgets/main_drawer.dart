@@ -8,7 +8,6 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppAuthProvider authProvider = Provider.of<AppAuthProvider>(context);
 
     return Drawer(
       child: Padding(
@@ -30,14 +29,6 @@ class MainDrawer extends StatelessWidget {
                     Text(
                       'Filmaiada',
                       style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: const Icon(Icons.person),
                     ),
                   ],
                 )
