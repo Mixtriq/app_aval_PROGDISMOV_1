@@ -22,15 +22,11 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
   final _movieStarsController = TextEditingController();
 
   String networkImage = '';
+  String posterErrorMessage = 'Informe a url';
 
   final _formKey = GlobalKey<FormState>();
 
-  void getImageUrl() {
-    setState(() {
-      networkImage = _posterUrlController.text;
-    });
-  }
-
+  
   @override
   void initState() {
     super.initState();
@@ -61,6 +57,23 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
     return isValidUrl && endsWithFile;
   }
 
+  void validatePosterUrl(url) {
+      
+    if (isValidImageUrl(url)) {
+      setState(() {
+        networkImage = _posterUrlController.text;
+        
+      });
+      
+    }else{
+      setState(() {
+        posterErrorMessage = 'Insira uma url válida';
+        
+      });
+    }
+  }
+
+
   Widget getBody() {
     MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
 
@@ -88,12 +101,14 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                         decoration:
                             const InputDecoration(labelText: 'Url do pôster'),
                         controller: _posterUrlController,
-                        onChanged: (value) {
-                          getImageUrl();
+                        onFieldSubmitted: (value) {
+                          validatePosterUrl(value);
                         },
                         validator: (poster) {
                           if (poster == null || poster.isEmpty) {
                             return 'Pôster é obrigatório';
+                          } else if (isValidImageUrl(poster)) {
+                            return 'Insira uma url válida';
                           }
                           return null;
                         },
@@ -114,7 +129,7 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                       ),
                       alignment: Alignment.center,
                       child: networkImage.isEmpty
-                          ? const Text('Informe a Url')
+                          ? Text(posterErrorMessage)
                           : Image.network(
                               networkImage,
                               fit: BoxFit.cover,
@@ -167,12 +182,13 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Atores principais'),
+                  decoration:
+                      const InputDecoration(labelText: 'Atores principais'),
                   controller: _movieStarsController,
                   validator: (stars) {
                     final regex = RegExp(r'^[a-zA-Z\s,]+$');
 
-                  if (stars == null || stars.isEmpty) {
+                    if (stars == null || stars.isEmpty) {
                       return 'Insira no mínimo um ator principal';
                     } else if (!regex.hasMatch(stars)) {
                       return 'Insira os nomes dos atores separados por vígula';
