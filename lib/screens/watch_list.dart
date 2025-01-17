@@ -27,36 +27,38 @@ class WatchListScreenState extends State<WatchListScreen> {
     try {
       if (user == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content:Text("Usuário não está logado")));
+            const SnackBar(content: Text("Usuário não está logado")));
         return;
       }
-
+  
       final watchListSnapshot =
           await _database.child('watchLists/${user!.uid}').get();
-
+  
       if (mounted) {
         if (watchListSnapshot.exists) {
           final watchListData = watchListSnapshot.value as Map?;
-
+  
           if (watchListData != null && watchListData.containsKey('movies')) {
-            final movieList = watchListData['movies'] as List?;
-
-            if (movieList != null) {
-              final watchListIds = movieList
-                  .asMap()
-                  .entries
+            final moviesMap = watchListData['movies'] as Map?;
+  
+            if (moviesMap != null) {
+              final watchListIds = moviesMap.entries
                   .where((entry) => entry.value == true)
-                  .map((entry) => (entry.key).toString())
+                  .map((entry) => entry.key.toString())
                   .toList();
-
+  
               final allMovies = MoviesProvider.of(context).state.movies;
-
+  
               setState(() {
                 _watchList = allMovies
                     .where((movie) => watchListIds.contains(movie.id.toString()))
                     .toList();
               });
             }
+          } else {
+            setState(() {
+              _watchList = [];
+            });
           }
         } else {
           setState(() {
