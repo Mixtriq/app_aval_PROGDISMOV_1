@@ -23,38 +23,52 @@ class WatchListScreenState extends State<WatchListScreen> {
     _loadWatchList();
   }
 
-  Future<void> _loadWatchList() async {
-    try {
-      if (user == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Usuário não está logado")));
-        return;
-      }
-  
-      final watchListSnapshot =
-          await _database.child('watchLists/${user!.uid}').get();
-  
-      if (mounted) {
-        if (watchListSnapshot.exists) {
-          final watchListData = watchListSnapshot.value as Map?;
-  
-          if (watchListData != null && watchListData.containsKey('movies')) {
-            final moviesMap = watchListData['movies'] as Map?;
-  
-            if (moviesMap != null) {
-              final watchListIds = moviesMap.entries
-                  .where((entry) => entry.value == true)
-                  .map((entry) => entry.key.toString())
+Future<void> _loadWatchList() async {
+  try {
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Usuário não está logado")),
+      );
+      return;
+    }
+
+    final watchListSnapshot =
+        await _database.child('watchLists/${user!.uid}').get();
+
+    if (mounted) {
+      if (watchListSnapshot.exists) {
+        final watchListData = watchListSnapshot.value;
+
+        if (watchListData is Map) {
+          final moviesMap = watchListData['movies'];
+          if (moviesMap is Map) {
+            final watchListIds = moviesMap.entries
+                .where((entry) => entry.value == true)
+                .map((entry) => entry.key.toString())
+                .toList();
+
+            final allMovies = MoviesProvider.of(context).state.movies;
+
+            setState(() {
+              _watchList = allMovies
+                  .where((movie) => watchListIds.contains(movie.id.toString()))
                   .toList();
-  
-              final allMovies = MoviesProvider.of(context).state.movies;
-  
-              setState(() {
-                _watchList = allMovies
-                    .where((movie) => watchListIds.contains(movie.id.toString()))
-                    .toList();
-              });
-            }
+            });
+          } else if (moviesMap is List) {
+            final watchListIds = moviesMap
+                .asMap()
+                .entries
+                .where((entry) => entry.value == true)
+                .map((entry) => entry.key.toString())
+                .toList();
+
+            final allMovies = MoviesProvider.of(context).state.movies;
+
+            setState(() {
+              _watchList = allMovies
+                  .where((movie) => watchListIds.contains(movie.id.toString()))
+                  .toList();
+            });
           } else {
             setState(() {
               _watchList = [];
@@ -65,14 +79,20 @@ class WatchListScreenState extends State<WatchListScreen> {
             _watchList = [];
           });
         }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Erro ao carregar a Watch List: $e")));
+      } else {
+        setState(() {
+          _watchList = [];
+        });
       }
     }
+  } catch (e) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Erro ao carregar a Watch List: $e")),
+      );
+    }
   }
+}
 
   @override
   Widget build(BuildContext context) {
