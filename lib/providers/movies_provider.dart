@@ -4,6 +4,7 @@ import 'package:filmaiada/models/movie.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart'; 
 
 class MoviesProvider with ChangeNotifier {
   final databaseReference = FirebaseDatabase.instance.ref();
@@ -15,6 +16,11 @@ class MoviesProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
   int? get lastId => _movies[_movies.length - 1].id;
+
+  get state => this;
+  static MoviesProvider of(BuildContext context) {
+    return Provider.of<MoviesProvider>(context, listen: false);
+  }
 
   Future<void> fetchMovies() async {
     _isLoading = true;
@@ -28,7 +34,7 @@ class MoviesProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
-        _movies = data.map((json) => Movie.fromJson(json)).toList();
+        _movies = data.isNotEmpty? data.map((json) => Movie.fromJson(json)).toList(): [];
       } else {
         _error = 'Falha ao carregar filmes';
       }

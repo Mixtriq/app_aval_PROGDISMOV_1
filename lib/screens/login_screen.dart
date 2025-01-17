@@ -53,7 +53,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login com Google'),
+        title: const Text('Login'),
       ),
       body: Center(
         child: _isSigningIn
