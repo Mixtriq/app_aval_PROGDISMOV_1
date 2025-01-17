@@ -40,7 +40,7 @@ class MainDrawer extends StatelessWidget {
                       backgroundColor: Theme.of(context).primaryColor,
                       child: const Icon(Icons.person),
                     ),
-                    Text(user!.displayName ?? 'Usuário'),
+                    Text(user!.displayName ?? 'Anonimo'),
                   ],                 
                 )
               ],
