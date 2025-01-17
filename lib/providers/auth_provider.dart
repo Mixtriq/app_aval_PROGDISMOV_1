@@ -5,11 +5,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AppAuthProvider extends ChangeNotifier {
   bool _isSigningIn = false;
   String? _error;
-  User? _user;
 
   String? get error => _error;
   bool get isSigningIn => _isSigningIn;
-  User? get user => _user;
 
   Future<void> signInWithGoogle() async {
     _isSigningIn = true;
@@ -32,8 +30,6 @@ class AppAuthProvider extends ChangeNotifier {
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
 
-        _user = userCredential.user;
-        notifyListeners();
 
       }
     } catch (e) {

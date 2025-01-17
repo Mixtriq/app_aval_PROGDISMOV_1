@@ -30,8 +30,8 @@ class MoviePage extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (ctx) => MovieInfoScreen(movie: movie)));
                   },
-                  child: Image.asset(
-                    "assets/img/${movie.posterUrl}",
+                  child: Image.network(
+                    movie.posterUrl,
                     fit: BoxFit.cover,
                   ),
                 ),

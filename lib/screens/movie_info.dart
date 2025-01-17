@@ -29,8 +29,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
             SizedBox(
               width: double.infinity,
               height: 300,
-              child: Image.asset(
-                "assets/img/${widget.movie.posterUrl}",
+              child: Image.network(widget.movie.posterUrl,
                 fit: BoxFit.cover,
               ),
             ),
