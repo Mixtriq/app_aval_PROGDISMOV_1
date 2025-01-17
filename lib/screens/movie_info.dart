@@ -30,7 +30,7 @@ class _MovieInfoScreenState extends State<MovieInfoScreen> {
               width: double.infinity,
               height: 300,
               child: Image.asset(
-                widget.movie.posterUrl,
+                "assets/img/${widget.movie.posterUrl}",
                 fit: BoxFit.cover,
               ),
             ),

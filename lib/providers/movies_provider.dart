@@ -13,6 +13,7 @@ class MoviesProvider with ChangeNotifier {
   List<Movie> get movies => _movies;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  int? get lastId => _movies[_movies.length].id;
 
   get state => this;
   static MoviesProvider of(BuildContext context) {
@@ -43,4 +44,30 @@ class MoviesProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> addMovie(Movie movie) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final url = Uri.https('filmaiada-33122-default-rtdb.firebaseio.com',
+          "movies/${movie.id}.json");
+
+      final response = await http.post(url, body: movie.toJson());
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        _movies = data.map((json) => Movie.fromJson(json)).toList();
+      } else {
+        _error = 'Falha ao adicionar o filme';
+      }
+    } catch (error) {
+      _error = error.toString();
+      rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
 }
