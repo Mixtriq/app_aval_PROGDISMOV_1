@@ -25,6 +25,12 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  void getImageUrl() {
+    setState(() {
+      networkImage = _posterUrlController.text;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,26 +88,32 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                         decoration:
                             const InputDecoration(labelText: 'Url do pôster'),
                         controller: _posterUrlController,
+                        onChanged: (value) {
+                          getImageUrl();
+                        },
                       ),
                     ),
-                    // Container(
-                    //       height: 400,
-                    //       width: 400,
-                    //       margin: const EdgeInsets.only(
-                    //         top: 10,
-                    //         left: 10,
-                    //       ),
-                    //       decoration: BoxDecoration(
-                    //         border: Border.all(
-                    //           color: Colors.grey,
-                    //           width: 1,
-                    //         ),
-                    //       ),
-                    //       alignment: Alignment.center,
-                    //       child: _posterUrlController.text.isEmpty
-                    //           ? const Text('Informe a Url')
-                    //           : Image.network(_posterUrlController.text, fit: BoxFit.cover,),
-                    //     ),
+                    Container(
+                      height: 200,
+                      width: 150,
+                      margin: const EdgeInsets.only(
+                        top: 10,
+                        left: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: networkImage.isEmpty
+                          ? const Text('Informe a Url')
+                          : Image.network(
+                              networkImage,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
                   ],
                 ),
                 TextFormField(
@@ -148,7 +160,8 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                             title: _titleController.text,
                             releaseYear: _releaseYear.toString(),
                             posterUrl: _posterUrlController.text,
-                            duration: int.tryParse(_durationController.text) ?? 0,
+                            duration:
+                                int.tryParse(_durationController.text) ?? 0,
                             director: _directorController.text,
                             movieStars: _movieStarsController.text.split(','),
                             averageRating: Movie.getAverageRating(),
