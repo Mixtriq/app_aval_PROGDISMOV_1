@@ -31,7 +31,7 @@ class FavoriteMovie extends StatelessWidget {
               ),
               child: SizedBox(
                 height: 100,
-                child: Image.network(movie.posterUrl),
+                child: Image.network(movie.posterUrl, fit: BoxFit.cover,),
               ),
             ),
             const SizedBox(width: 20.0),

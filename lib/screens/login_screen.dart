@@ -17,7 +17,7 @@ class LoginScreenState extends State<LoginScreen> {
       await Provider.of<AppAuthProvider>(context, listen: false).signInWithGoogle();
 
       if (mounted) {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+          Navigator.of(context).pushNamedAndRemoveUntil(AppRoutes.home, ModalRoute.withName(AppRoutes.login));
         }
       
     } catch (e) {
