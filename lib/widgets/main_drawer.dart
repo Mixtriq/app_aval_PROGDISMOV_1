@@ -1,13 +1,15 @@
-import 'package:filmaiada/providers/auth_provider.dart';
+
 import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
 
     return Drawer(
       child: Padding(
@@ -31,6 +33,15 @@ class MainDrawer extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: const Icon(Icons.person),
+                    ),
+                    Text(user!.displayName ?? 'Anonimo'),
+                  ],                 
                 )
               ],
             )),
