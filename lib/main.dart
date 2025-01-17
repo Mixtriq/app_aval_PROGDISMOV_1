@@ -14,15 +14,14 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyAIDR-cKt_Rbap8WE-eZ7Z9pWYTtJ2arUQ",
-      authDomain: "filmaiada-33122.firebaseapp.com",
-      databaseURL: "https://filmaiada-33122-default-rtdb.firebaseio.com",
-      projectId: "filmaiada-33122",
-      storageBucket: "filmaiada-33122.firebasestorage.app",
-      messagingSenderId: "757075726048",
-      appId: "1:757075726048:web:3854ef9b7b7f4ade4b4a85"
-    )
+    options: const FirebaseOptions(  
+    apiKey: "AIzaSyAIDR-cKt_Rbap8WE-eZ7Z9pWYTtJ2arUQ",
+    authDomain: "filmaiada-33122.firebaseapp.com",
+    databaseURL: "https://filmaiada-33122-default-rtdb.firebaseio.com",
+    projectId: "filmaiada-33122",
+    storageBucket: "filmaiada-33122.firebasestorage.app",
+    messagingSenderId: "757075726048",
+    appId: "1:757075726048:web:3854ef9b7b7f4ade4b4a85")
   );
   runApp(const MyApp());
 }
