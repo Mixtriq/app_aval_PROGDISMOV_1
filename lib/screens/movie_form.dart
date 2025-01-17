@@ -1,3 +1,4 @@
+import 'package:filmaiada/models/movie.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,16 @@ class MovieFormScreen extends StatefulWidget {
 
 class _MovieFormScreenState extends State<MovieFormScreen> {
   late List<int> _years;
-  int? _selectedYear;
+  int? _releaseYear;
+
+  final _posterUrlController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _directorController = TextEditingController();
+  final _durationController = TextEditingController();
+  final _synopsisController = TextEditingController();
+  final _movieStarsController = TextEditingController();
+
+  String networkImage = '';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -37,6 +47,14 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
     );
   }
 
+  // bool isValidImageUrl(String url) {
+  //   bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
+  //   bool endsWithFile = url.toLowerCase().endsWith('.png') ||
+  //       url.toLowerCase().endsWith('.jpg') ||
+  //       url.toLowerCase().endsWith('.jpeg');
+  //   return isValidUrl && endsWithFile;
+  // }
+
   Widget getBody() {
     MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
 
@@ -49,51 +67,98 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
         child: Text(moviesProvider.error!),
       );
     } else {
-      return Form(
-        key: _formKey,
-          child: Column(
-        spacing: 10,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Título'),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Diretor'),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Título'),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Duração (min)'),
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Sinopse'),
-            maxLines: 3,
-
-          ),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Estrelas'),
-            maxLines: 3,
-
-          ),
-          DropdownButton<int>(
-            value: _selectedYear,
-            hint: const Text("Ano de Lançamento"),
-            items: _years.map((year) {
-              return DropdownMenuItem<int>(
-                value: year,
-                child: Text(year.toString()),
-              );
-            }).toList(),
-            onChanged: (value) {
-              setState(() {
-                _selectedYear = value;
-              });
-            },
-          ),
-        ],
-      ));
+      return SingleChildScrollView(
+        child: Form(
+            key: _formKey,
+            child: Column(
+              spacing: 10,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration:
+                            const InputDecoration(labelText: 'Url do pôster'),
+                        controller: _posterUrlController,
+                      ),
+                    ),
+                    // Container(
+                    //       height: 400,
+                    //       width: 400,
+                    //       margin: const EdgeInsets.only(
+                    //         top: 10,
+                    //         left: 10,
+                    //       ),
+                    //       decoration: BoxDecoration(
+                    //         border: Border.all(
+                    //           color: Colors.grey,
+                    //           width: 1,
+                    //         ),
+                    //       ),
+                    //       alignment: Alignment.center,
+                    //       child: _posterUrlController.text.isEmpty
+                    //           ? const Text('Informe a Url')
+                    //           : Image.network(_posterUrlController.text, fit: BoxFit.cover,),
+                    //     ),
+                  ],
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Título'),
+                  controller: _titleController,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Diretor'),
+                  controller: _directorController,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Duração (min)'),
+                  controller: _durationController,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Sinopse'),
+                  controller: _synopsisController,
+                  maxLines: 3,
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Estrelas'),
+                  controller: _movieStarsController,
+                  maxLines: 3,
+                ),
+                DropdownButton<int>(
+                  value: _releaseYear,
+                  hint: const Text("Ano de Lançamento"),
+                  items: _years.map((year) {
+                    return DropdownMenuItem<int>(
+                      value: year,
+                      child: Text(year.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      _releaseYear = value;
+                    });
+                  },
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await moviesProvider.addMovie(Movie(
+                            title: _titleController.text,
+                            releaseYear: _releaseYear.toString(),
+                            posterUrl: _posterUrlController.text,
+                            duration: int.tryParse(_durationController.text) ?? 0,
+                            director: _directorController.text,
+                            movieStars: _movieStarsController.text.split(','),
+                            averageRating: Movie.getAverageRating(),
+                            synopsis: _synopsisController.text));
+                      }
+                    },
+                    child: Text('Adicionar'))
+              ],
+            )),
+      );
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:math';
 
 class Movie {
-  final int id;
+  int? id;
   final String title;
   final String releaseYear;
   final String posterUrl;
@@ -11,7 +11,7 @@ class Movie {
   final double averageRating;
   final String synopsis;
 
-  static getAverageRating(){
+  static double getAverageRating(){
     final random = Random();
   
     double randomValue = 5 + random.nextDouble() * (9 - 5);
@@ -22,7 +22,7 @@ class Movie {
   }
 
   Movie(
-      {required this.id,
+      {this.id,
       required this.title,
       required this.releaseYear,
       required this.posterUrl,
@@ -41,7 +41,7 @@ class Movie {
         posterUrl: json["posterUrl"],
         duration: json["duration"],
         director: json["director"],
-        movieStars: List<String>.from(json["movieStars"].map((x) => x)),
+        movieStars: json["movieStars"] == null? []: List<String>.from(json["movieStars"].map((x) => x)),
         averageRating: json["averageRating"]?.toDouble(),
         synopsis: json["synopsis"]
     );

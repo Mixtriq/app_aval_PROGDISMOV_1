@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:filmaiada/models/movie.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MoviesProvider with ChangeNotifier {
+  final databaseReference = FirebaseDatabase.instance.ref();
   List<Movie> _movies = [];
   bool _isLoading = false;
   String? _error;
@@ -12,7 +14,7 @@ class MoviesProvider with ChangeNotifier {
   List<Movie> get movies => _movies;
   bool get isLoading => _isLoading;
   String? get error => _error;
-  int? get lastId => _movies[_movies.length].id;
+  int? get lastId => _movies[_movies.length - 1].id;
 
   Future<void> fetchMovies() async {
     _isLoading = true;
@@ -44,17 +46,30 @@ class MoviesProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = Uri.https('filmaiada-33122-default-rtdb.firebaseio.com',
-          "movies/${movie.id}.json");
-
-      final response = await http.post(url, body: movie.toJson());
-
-      if (response.statusCode == 200) {
-        final List<dynamic> data = jsonDecode(response.body);
-        _movies = data.map((json) => Movie.fromJson(json)).toList();
-      } else {
-        _error = 'Falha ao adicionar o filme';
+      if (_movies.isEmpty) {
+        await fetchMovies();
       }
+
+      final int lastId = _movies.last.id!;
+      
+      movie.id = lastId + 1;
+
+      // final url = Uri.https('filmaiada-33122-default-rtdb.firebaseio.com', "movies/${movie.id!}.json");
+      await databaseReference
+          .child("movies")
+          .child(lastId.toString())
+          .set(movie.toJson());
+
+      _movies.add(movie);
+
+      //final response = await http.post(url, body: jsonEncode(movie.toJson()));
+
+      // if (response.statusCode == 200) {
+      //   final List<dynamic> data = jsonDecode(response.body);
+      //   _movies = data.map((json) => Movie.fromJson(json)).toList();
+      // } else {
+      //   _error = 'Falha ao adicionar o filme';
+      // }
     } catch (error) {
       _error = error.toString();
       rethrow;
@@ -63,5 +78,4 @@ class MoviesProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
 }
