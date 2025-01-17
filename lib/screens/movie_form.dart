@@ -53,13 +53,13 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
     );
   }
 
-  // bool isValidImageUrl(String url) {
-  //   bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
-  //   bool endsWithFile = url.toLowerCase().endsWith('.png') ||
-  //       url.toLowerCase().endsWith('.jpg') ||
-  //       url.toLowerCase().endsWith('.jpeg');
-  //   return isValidUrl && endsWithFile;
-  // }
+  bool isValidImageUrl(String url) {
+    bool isValidUrl = Uri.tryParse(url)?.hasAbsolutePath ?? false;
+    bool endsWithFile = url.toLowerCase().endsWith('.png') ||
+        url.toLowerCase().endsWith('.jpg') ||
+        url.toLowerCase().endsWith('.jpeg');
+    return isValidUrl && endsWithFile;
+  }
 
   Widget getBody() {
     MoviesProvider moviesProvider = Provider.of<MoviesProvider>(context);
@@ -91,6 +91,12 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                         onChanged: (value) {
                           getImageUrl();
                         },
+                        validator: (poster) {
+                          if (poster == null || poster.isEmpty) {
+                            return 'Pôster é obrigatório';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Container(
@@ -119,26 +125,64 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Título'),
                   controller: _titleController,
+                  validator: (title) {
+                    if (title == null || title.isEmpty) {
+                      return 'Título é obrigatório';
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Diretor'),
                   controller: _directorController,
+                  validator: (director) {
+                    if (director == null || director.isEmpty) {
+                      return 'Diretor é obrigatório';
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Duração (min)'),
                   controller: _durationController,
+                  validator: (duration) {
+                    final regex = RegExp(r'^\d+$');
+                    if (duration == null || duration.isEmpty) {
+                      return 'Duração é obrigatória';
+                    } else if (!regex.hasMatch(duration)) {
+                      return 'Insira somente números';
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Sinopse'),
                   controller: _synopsisController,
                   maxLines: 3,
+                  validator: (synopsis) {
+                    if (synopsis == null || synopsis.isEmpty) {
+                      return 'Sinopse é obrigatória';
+                    }
+                    return null;
+                  },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Estrelas'),
+                  decoration: const InputDecoration(labelText: 'Atores principais'),
                   controller: _movieStarsController,
+                  validator: (stars) {
+                    final regex = RegExp(r'^[a-zA-Z\s,]+$');
+
+                  if (stars == null || stars.isEmpty) {
+                      return 'Insira no mínimo um ator principal';
+                    } else if (!regex.hasMatch(stars)) {
+                      return 'Insira os nomes dos atores separados por vígula';
+                    }
+
+                    return null;
+                  },
                   maxLines: 3,
                 ),
-                DropdownButton<int>(
+                DropdownButtonFormField<int>(
                   value: _releaseYear,
                   hint: const Text("Ano de Lançamento"),
                   items: _years.map((year) {
@@ -151,6 +195,12 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                     setState(() {
                       _releaseYear = value;
                     });
+                  },
+                  validator: (releaseYear) {
+                    if (releaseYear == null) {
+                      return 'Selecione o ano de lançamento';
+                    }
+                    return null;
                   },
                 ),
                 ElevatedButton(
@@ -168,7 +218,7 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
                             synopsis: _synopsisController.text));
                       }
                     },
-                    child: Text('Adicionar'))
+                    child: const Text('Adicionar'))
               ],
             )),
       );
