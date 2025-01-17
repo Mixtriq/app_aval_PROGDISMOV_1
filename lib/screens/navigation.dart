@@ -1,5 +1,6 @@
 import 'package:filmaiada/screens/movies.dart';
 import 'package:filmaiada/screens/watch_list.dart';
+import 'package:filmaiada/utils/routes.dart';
 import 'package:filmaiada/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +16,18 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Filmaiada'),
+        actions: [
+          TextButton.icon(
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.movieForm);
+            },
+            label: Text('Novo Filme'),
+            icon: Icon(Icons.movie_edit),
+          )
+        ],
       ),
       drawer: const MainDrawer(),
       drawerEnableOpenDragGesture: false,

@@ -1,4 +1,5 @@
 import 'package:filmaiada/screens/login_screen.dart';
+import 'package:filmaiada/screens/movie_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:filmaiada/providers/movies_provider.dart';
 import 'package:filmaiada/screens/about_us.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.home: (ctx) => const AppNavigationScreen(),
           AppRoutes.movies: (ctx) => const MoviesScreen(),
           //AppRoutes.watchList: (ctx) => const WatchListScreen(),
+          AppRoutes.movieForm: (ctx) => const MovieFormScreen(),
           AppRoutes.aboutUs: (ctx) => const AboutUsScreen(),
         },
       ),

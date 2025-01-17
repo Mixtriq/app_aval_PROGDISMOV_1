@@ -5,4 +5,5 @@ class AppRoutes {
   static const movies = '/movies';
   static const aboutUs = '/about_us';
   static const watchList = '/watch_list';
+  static const movieForm = '/movie_form';
 }

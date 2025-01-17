@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Movie {
   final int id;
   final String title;
@@ -8,8 +10,16 @@ class Movie {
   final List<String> movieStars;
   final double averageRating;
   final String synopsis;
+
+  static getAverageRating(){
+    final random = Random();
   
-  bool isFavorite = false;
+    double randomValue = 5 + random.nextDouble() * (9 - 5);
+
+    return double.parse(randomValue.toStringAsFixed(1));
+  
+  
+  }
 
   Movie(
       {required this.id,
@@ -20,7 +30,9 @@ class Movie {
       required this.director,
       required this.movieStars,
       required this.averageRating,
-      required this.synopsis});
+      required this.synopsis
+    });
+
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         id: json["id"],
@@ -31,6 +43,19 @@ class Movie {
         director: json["director"],
         movieStars: List<String>.from(json["movieStars"].map((x) => x)),
         averageRating: json["averageRating"]?.toDouble(),
-        synopsis: json["synopsis"],
+        synopsis: json["synopsis"]
     );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "releaseYear": releaseYear,
+        "posterUrl": posterUrl,
+        "duration": duration,
+        "director": director,
+        "movieStars": List<dynamic>.from(movieStars.map((x) => x)),
+        "averageRating": averageRating,
+        "synopsis": synopsis
+    };
 }
+
