@@ -38,8 +38,8 @@ class MoviesProvider with ChangeNotifier {
       } else {
         _error = 'Falha ao carregar filmes';
       }
-    } catch (error) {
-      _error = error.toString();
+    } catch (e) {
+      _error = "Erro ao carregar os filmes:\n$e";
       rethrow;
     } finally {
       _isLoading = false;
@@ -61,11 +61,14 @@ class MoviesProvider with ChangeNotifier {
       movie.id = lastId + 1;
 
       // final url = Uri.https('filmaiada-33122-default-rtdb.firebaseio.com', "movies/${movie.id!}.json");
+
+      //essa é a melhor maneira de deixar o banco mais organizado, tenti fazer por post mais ele cria umas chaves doidas
       await databaseReference
           .child("movies")
           .child(lastId.toString())
           .set(movie.toJson());
 
+      //Aqui eu altero o estado pra  
       _movies.add(movie);
 
       //final response = await http.post(url, body: jsonEncode(movie.toJson()));
@@ -76,8 +79,8 @@ class MoviesProvider with ChangeNotifier {
       // } else {
       //   _error = 'Falha ao adicionar o filme';
       // }
-    } catch (error) {
-      _error = error.toString();
+    } catch (e) {
+      _error = "Erro ao adicionar o filme:\n$e";
       rethrow;
     } finally {
       _isLoading = false;

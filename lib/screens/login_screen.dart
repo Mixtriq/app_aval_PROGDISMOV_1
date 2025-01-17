@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:filmaiada/providers/auth_provider.dart';
 import 'package:filmaiada/utils/routes.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,58 +11,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  bool _isSigningIn = false;
-
-  Future<void> _signInWithGoogle() async {
-    setState(() {
-      _isSigningIn = true;
-    });
+  Future<void> login() async {
 
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn(clientId: "757075726048-q4e2moam07bpnp7lft3ohmlq6bko8r50.apps.googleusercontent.com").signIn();
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      await Provider.of<AppAuthProvider>(context, listen: false).signInWithGoogle();
 
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-
-        await FirebaseAuth.instance.signInWithCredential(credential);
-
-        if (mounted) {
+      if (mounted) {
           Navigator.of(context).pushReplacementNamed(AppRoutes.home);
         }
-      }
+      
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Erro ao fazer login: $e')),
         );
       }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isSigningIn = false;
-        });
-      }
-    }
+    } 
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Center(
-        child: _isSigningIn
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                onPressed: _signInWithGoogle,
-                child: const Text('Login com Google'),
-              ),
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Login'),
+        ),
+        body: Center(child: getBody(),) );
+  }
+
+  Widget getBody() {
+    AppAuthProvider authProvider = Provider.of<AppAuthProvider>(context);
+    if (authProvider.isSigningIn) {
+      return const CircularProgressIndicator();
+    } else if (authProvider.error != null) {
+      return Text(authProvider.error!);
+    } else {
+      return ElevatedButton(
+        onPressed: login,
+        child: const Text('Login com Google'),
+      );
+    }
   }
 }

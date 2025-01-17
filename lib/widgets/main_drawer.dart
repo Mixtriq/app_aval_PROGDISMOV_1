@@ -1,11 +1,15 @@
+import 'package:filmaiada/providers/auth_provider.dart';
 import 'package:filmaiada/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppAuthProvider authProvider = Provider.of<AppAuthProvider>(context);
+
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -13,20 +17,32 @@ class MainDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DrawerHeader(
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.movie,
-                    size: 48.0,
-                  ),
-                  const SizedBox(width: 20),
-                  Text(
-                    'Filmaiada',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ],
-              ),
-            ),
+                child: Column(
+              spacing: 20,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.movie,
+                      size: 48.0,
+                    ),
+                    const SizedBox(width: 20),
+                    Text(
+                      'Filmaiada',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: const Icon(Icons.person),
+                    ),
+                  ],
+                )
+              ],
+            )),
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.aboutUs);
@@ -51,5 +67,3 @@ class MainDrawer extends StatelessWidget {
     );
   }
 }
-
-

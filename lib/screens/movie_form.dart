@@ -43,7 +43,7 @@ class _MovieFormScreenState extends State<MovieFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Novo Filme'),
+        title: const Text('Novo Filme'),
       ),
       body: getBody(),
     );

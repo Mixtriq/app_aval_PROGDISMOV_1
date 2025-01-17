@@ -24,8 +24,8 @@ class _AppNavigationScreenState extends State<AppNavigationScreen> {
             onPressed: () {
               Navigator.pushNamed(context, AppRoutes.movieForm);
             },
-            label: Text('Novo Filme'),
-            icon: Icon(Icons.movie_edit),
+            label: const Text('Novo Filme'),
+            icon: const Icon(Icons.movie_edit),
           )
         ],
       ),

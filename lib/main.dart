@@ -1,3 +1,4 @@
+import 'package:filmaiada/providers/auth_provider.dart';
 import 'package:filmaiada/screens/login_screen.dart';
 import 'package:filmaiada/screens/movie_form.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AppAuthProvider()),
         ChangeNotifierProvider(create: (_) => MoviesProvider()),
       ],
       child: MaterialApp(
