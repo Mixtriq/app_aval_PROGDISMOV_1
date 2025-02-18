@@ -17,6 +17,13 @@ tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
-dependencies {
-    classpath 'com.google.gms:google-services:4.4.2'
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2'  // Certifique-se de usar uma versão compatível
+        classpath 'com.google.gms:google-services:4.4.2'  // Deixe dentro do buildscript
+    }
 }

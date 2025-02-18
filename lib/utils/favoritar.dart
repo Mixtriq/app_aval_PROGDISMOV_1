@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:filmaiada/utils/notificacao.dart';
 
 class WatchListManager {
   final BuildContext context;
@@ -25,37 +26,37 @@ class WatchListManager {
             FirebaseDatabase.instance.ref('watchLists/$userId/movies/$movieId');
 
         DatabaseEvent event = await testeToggle.once();
-        if(event.snapshot.exists){
+        if (event.snapshot.exists) {
           await testeToggle.remove();
           showNotification("Filme removido da Watch List!");
         } else {
           await testeToggle.set(true);
           showNotification("Filme adicionado à Watch List!");
         }
+        notifyUser(userId, "Filme foi adicionado! confia.");
       } else {
         showNotification("Nenhum usuário logado", isError: true);
       }
-    } catch (e){
+    } catch (e) {
       showNotification("Erro ao atualizar Watch List: $e", isError: true);
     }
   }
 
   Future<bool> testeProBotao(String movieId) async {
-  try {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      String userId = user.uid;
-      final movieRef =
-        FirebaseDatabase.instance.ref('watchLists/$userId/movies/$movieId');
-      DatabaseEvent event = await movieRef.once();
-      return event.snapshot.exists;
-    } else {
-      showNotification("Usuário não autenticado.", isError: true);
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        String userId = user.uid;
+        final movieRef =
+            FirebaseDatabase.instance.ref('watchLists/$userId/movies/$movieId');
+        DatabaseEvent event = await movieRef.once();
+        return event.snapshot.exists;
+      } else {
+        showNotification("Usuário não autenticado.", isError: true);
+      }
+    } catch (e) {
+      showNotification("Erro ao verificar Watch List: $e", isError: true);
     }
-  } catch (e) {
-    showNotification("Erro ao verificar Watch List: $e", isError: true);
+    return false;
   }
-  return false;
-  }
-
 }
